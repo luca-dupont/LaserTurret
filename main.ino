@@ -11,9 +11,9 @@ struct Pos {
 };
 
 void setup() {
-  serX.attach(10);
-  serY.attach(11);
-  Serial.begin(9600); // Set the baud rate to match your Python script
+  serX.attach(10); // pin 10 for X axis
+  serY.attach(11); // pin 11 for Y axis
+  Serial.begin(9600); // Set baud rate same as controller and FaceRec files
   Serial.setTimeout(10);
 }
 
@@ -30,7 +30,7 @@ void serialEvent() {
   serY.write(coords.y);
 }
 
-Pos parsePos(String coords) {
+Pos parsePos(String coords) { // Parse data sent by controller or faceRec files
   Pos pos = {0,0};
   int yIndex = coords.indexOf("Y");
 
