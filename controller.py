@@ -3,7 +3,9 @@ import serial
 import sys
 
 class Controller :
-    def __init__(self,W=680,H=680) :
+    def __init__(self, use_serial, W=680,H=680) :
+        self.use_serial = use_serial
+
         pg.init()
         pg.font.init()
 
@@ -11,10 +13,11 @@ class Controller :
         self.baud_rate = 9600
         self.ser = None  # Initialize ser variable
 
-        try:
-            self.ser = serial.Serial(self.serial_port, self.baud_rate, timeout=1)
-        except serial.SerialException as e:
-            print(f"Error opening serial port: {e}")
+        if use_serial :
+            try:
+                self.ser = serial.Serial(self.serial_port, self.baud_rate, timeout=1)
+            except serial.SerialException as e:
+                print(f"Error opening serial port: {e}")
 
         self.screen = pg.display.set_mode((W, H))
         self.clock = pg.time.Clock()
@@ -26,7 +29,6 @@ class Controller :
         self.pos = (0,0)
         
         self.c=0
-
         self.data = ""
 
 
@@ -60,7 +62,7 @@ class Controller :
         self.clock.tick(120)
     
     def send_serial_pos(self) :
-        if not self.c%2 :    
+        if self.c%2 :    
             self.ser.write(self.data.encode())
         self.c += 1
         
@@ -73,5 +75,6 @@ class Controller :
     def run(self) :
         self.events()
         self.display()
-        self.send_serial_pos()
+        if self.use_serial :
+            self.send_serial_pos()
         self.update()

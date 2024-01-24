@@ -2,8 +2,10 @@ import cv2
 import sys
 import serial
 
-class CamWindow :
-    def __init__(self) :
+class FaceRec :
+    def __init__(self, use_serial : bool) :
+        self.use_serial = use_serial
+
         cv2.namedWindow("WebCam")
         self.vc = cv2.VideoCapture(0)
 
@@ -13,15 +15,16 @@ class CamWindow :
         self.baud_rate = 9600
         self.ser = None  # Initialize ser variable
 
-        try:
-            self.ser = serial.Serial(self.serial_port, self.baud_rate, timeout=1)
-        except serial.SerialException as e:
-            print(f"Error opening serial port: {e}")
+        if use_serial :
+            try:
+                self.ser = serial.Serial(self.serial_port, self.baud_rate, timeout=1)
+            except serial.SerialException as e:
+                print(f"Error opening serial port: {e}")
 
-        if self.vc.isOpened(): # try to get the first frame
-            self.rval, self.frame = self.vc.read()
-        else:
-            self.rval = False
+            if self.vc.isOpened(): # try to get the first frame
+                self.rval, self.frame = self.vc.read()
+            else:
+                self.rval = False
 
         self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
@@ -55,7 +58,6 @@ class CamWindow :
         self.X,self.Y,self.W,self.H = cv2.getWindowImageRect("WebCam")
 
         self.data = f"X{int(self.faces[-1][0]*(180/self.W))}Y{int(self.faces[-1][1]*(180/self.Y+self.H))}"
-        print(self.data)
 
         key = cv2.waitKey(20)
         if key == 27 :
@@ -79,4 +81,5 @@ class CamWindow :
 
     def run(self) :
         self.update()
-        # self.send_serial_pos()
+        if self.use_serial :
+            self.send_serial_pos()

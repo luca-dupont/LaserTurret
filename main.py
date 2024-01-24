@@ -1,13 +1,13 @@
 from controller import Controller
-from faceRec import CamWindow
+from faceRec import FaceRec
 
 def main():
-        # controller = Controller()
-        camWindow = CamWindow()
+        controller = Controller()
+        # faceRec = FaceRec()
 
         while True:
-            camWindow.run()
-            # controller.run()
+            # faceRec.run()
+            controller.run()
 
 if __name__ == '__main__':
     main()
