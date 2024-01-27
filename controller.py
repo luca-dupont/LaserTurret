@@ -22,7 +22,6 @@ class Controller :
         self.screen = pg.display.set_mode((W, H))
         self.clock = pg.time.Clock()
         self.font = pg.font.Font(None, 30)
-        self.mousepos = (0,0)
 
         self.W = self.screen.get_width()
         self.H = self.screen.get_height()
@@ -34,7 +33,7 @@ class Controller :
 
 
     def events(self) :
-        self.mousepos = pg.mouse.get_pos()
+        self.pos = pg.mouse.get_pos()
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -56,7 +55,6 @@ class Controller :
         pg.display.flip()
 
     def update(self) :
-        self.pos = (self.mousepos[0],self.mousepos[1])
 
         self.data = f"X{180-int(self.pos[0]*(180/self.W))}Y{int(self.pos[1]*(180/self.H))}"
 
