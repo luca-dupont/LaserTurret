@@ -79,7 +79,7 @@ class FaceRec :
         # self.c += 1
     
     def rotate(self) :
-        d = f"X{abs(180*sin(self.c))}Y{abs(180*cos(self.c))}"
+        d = f"X{abs(180*sin(self.c))}Y{180-abs(180*cos(self.c))}"
         # print(d)
         self.ser.write(d.encode())
         self.c += 0.1
