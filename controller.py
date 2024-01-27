@@ -22,6 +22,7 @@ class Controller :
         self.screen = pg.display.set_mode((W, H))
         self.clock = pg.time.Clock()
         self.font = pg.font.Font(None, 30)
+        self.mousepos = (0,0)
 
         self.W = self.screen.get_width()
         self.H = self.screen.get_height()
