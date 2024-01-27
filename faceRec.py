@@ -30,7 +30,7 @@ class FaceRec :
 
         self.faces = [(0,0)]
 
-        self.c = 1
+        # self.c = 1
         self.x, self.y, self.W, self.H = (0,0,0,0)
     
     def detect_faces(self, frame):
@@ -74,9 +74,9 @@ class FaceRec :
         sys.exit()
     
     def send_serial_pos(self) :
-        if not self.c%2 :    
-            self.ser.write(self.data.encode())
-        self.c += 1
+        # if self.c%2 :    
+        self.ser.write(self.data.encode())
+        # self.c += 1
     
 
     def run(self) :
