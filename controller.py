@@ -44,7 +44,7 @@ class Controller :
 
         pg.draw.rect(self.screen,'blue',(0,self.pos[1]-1,self.W,3))
         pg.draw.rect(self.screen,'blue',(self.pos[0]-1,0,3,self.H))
-        pg.draw.circle(self.screen, 'red', self.mousepos, 6)
+        pg.draw.circle(self.screen, 'red', self.pos, 6)
 
         text = self.font.render(
             self.data, True, (255,255,255)
