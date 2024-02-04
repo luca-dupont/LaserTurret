@@ -2,7 +2,7 @@ from control import Test
 
 def main():
     control = Test(True, 400, 400)
-
+    
     while True:
         control.run()
 
