@@ -1,7 +1,7 @@
 from control import Test
 
 def main():
-    control = Test(False, 400, 400)
+    control = Test(True, 400, 400)
 
     while True:
         control.run()
