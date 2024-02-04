@@ -1,10 +1,10 @@
-from control import Test
+from control import Controller
 
 def main():
-    control = Test(True, 400, 400)
-    
+    controller = Controller(True)
+
     while True:
-        control.run()
+        controller.run()
 
 if __name__ == "__main__":
     main()

@@ -5,7 +5,7 @@ import serial
 import pygame as pg
 import json
 
-class Test :
+class Controller :
     def __init__(self, use_serial : bool, recalibrate : bool = False, W=680,H=680) :
         self.use_serial = use_serial
         self.serial_port = '/dev/cu.usbmodem1101'
