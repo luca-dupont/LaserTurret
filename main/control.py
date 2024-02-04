@@ -52,12 +52,17 @@ class Test :
                         pg.quit()
                         running=False
                         break
+
+                screen.fill((0,0,0))
+                mousepos = pg.mouse.get_pos()
                 
                 match counter :
                     case 0 :
-                        screen.blit(font.render("Place laser at top left of screen,\n Press SPACE", True, 'white'), (10,30))
+                        text = font.render("Place laser a top left of screen, ", True, (255,255,255))
+                        screen.blit(text, (10,40))
                     case 1 :
-                        screen.blit(font.render("Place laser at bottom right of screen,\n Press SPACE", True, 'white'), (10,30))
+                        text = font.render("Place laser a bottom right of screen, ", True, (255,255,255))
+                        screen.blit(text, (10,40))
                     case 2 :
                         with open("settings.json", "w") as f :
                             json.dump(jdata, f, indent=2)
@@ -73,9 +78,7 @@ class Test :
                         jdata["XMAX"], jdata["YMAX"] = xval, yval
                     counter += 1
 
-                screen.fill((0,0,0))
-                mousepos = pg.mouse.get_pos()
-
+                screen.blit(font.render("Press SPACE", True, (255,255,255)), (10, 70))
                 pg.draw.rect(screen,'blue',(0,mousepos[1]-1,W,3))
                 pg.draw.rect(screen,'blue',(mousepos[0]-1,0,3,H))
                 pg.draw.circle(screen, 'red', mousepos, 6)
@@ -86,8 +89,9 @@ class Test :
                 xval = int(mousepos[0]*(180/W))
                 yval = int(mousepos[1]*(180/H))
 
-                data = f"X{xval}Y{yval}"
-                self.ser.write(data.encode())
+                if use_serial :
+                    data = f"X{xval}Y{yval}"
+                    self.ser.write(data.encode())
 
                 pg.display.flip()
 
