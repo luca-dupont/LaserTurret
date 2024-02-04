@@ -26,6 +26,7 @@ class Test :
             else:
                 self.rval = False
 
+        # Calibration sequence
         if not os.stat("settings.json").st_size or recalibrate:
             pg.init()
             pg.font.init()
@@ -51,13 +52,18 @@ class Test :
                         pg.quit()
                         running=False
                         break
-
-                if counter == 2 :
-                    with open("settings.json", "w") as f :
-                        json.dump(jdata, f, indent=2)
-                    pg.quit()
-                    running = False
-                    break
+                
+                match counter :
+                    case 0 :
+                        screen.blit(font.render("Place laser at top left of screen,\n Press SPACE", True, 'white'), (10,30))
+                    case 1 :
+                        screen.blit(font.render("Place laser at bottom right of screen,\n Press SPACE", True, 'white'), (10,30))
+                    case 2 :
+                        with open("settings.json", "w") as f :
+                            json.dump(jdata, f, indent=2)
+                        pg.quit()
+                        running = False
+                        break
 
                 key = cv2.waitKey(40)
                 if key == 32 :
