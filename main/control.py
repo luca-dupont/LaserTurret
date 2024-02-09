@@ -26,8 +26,12 @@ class Controller :
             else:
                 self.rval = False
 
+        if recalibrate :
+            with open("settings.json", 'w') as f :
+                f.write('')
+
         # Calibration sequence
-        if not os.stat("settings.json").st_size or recalibrate:
+        if not os.stat("settings.json").st_size:
             pg.init()
             pg.font.init()
 
